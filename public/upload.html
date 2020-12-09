@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
 </head>
 <body>
     <h1>upload</h1>
     <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="uuidv4" value="">
         <input type="file" name="codes" accept=".cpp,.h,.hpp" multiple />
         <button type="submit">submit</button>
     </form>
+    <script>
+        axios.get('/uuid').then(res => {
+            const uuidv4 = res.data
+            document.querySelector("input[name='uuidv4']").attributes['value'].value = uuidv4
+        })
+    </script>
 </body>
 </html>

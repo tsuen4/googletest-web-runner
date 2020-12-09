@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
   res.send('foo bar')
 })
 
+app.get('/uuid', (req, res) => {
+  res.send(uuidv4())
+})
+
 app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
 app.post('/upload', upload.array('codes'), (req, res) => {
