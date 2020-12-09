@@ -50,13 +50,9 @@ app.post('/run', upload.array('codes'), (req, res) => {
   // console.log(runCommand)
 
   execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
-    if (err) {
-      console.error(stderr)
-      res.send(stderr)
-      return
-    }
-    console.log(stdout)
-    res.send(stdout)
+    const response = stdout + stderr
+    console.log(response)
+    res.send(response)
     fs.rmdir(join(__dirname, 'uploads', id), { recursive: true }, err => {
       if (err) console.error(err)
     })
