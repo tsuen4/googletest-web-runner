@@ -6,22 +6,10 @@ const multer = require('multer')
 const { v4: uuidv4 } = require('uuid')
 const { execFile } = require('child_process')
 
-const mkdir_uuidv4 = (baseDirectory) => {
-  // 名前が衝突せずにディレクトリの作成ができたらディレクトリ名を返す
-  while (true) {
-    const directory = `${baseDirectory}/${uuidv4()}`
-    if (!fs.existsSync(directory)) {
-      fs.mkdirSync(directory)
-      return directory
-    }
-    // console.log(`ディレクトリ ${directory} を作成できません`)
-  }
-}
-
 const storage = multer.diskStorage({
   destination (req, file, cb) {
-    const directory = mkdir_uuidv4('uploads')
-    cb(null, directory)
+    const id = req.body.uuidv4
+    cb(null, `uploads/${id}`)
   },
   filename (req, file, cb) {
     cb(null, file.originalname)
