@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const multer = require('multer')
 const { v4: uuidv4 } = require('uuid')
+const { exec } = require('child_process')
 
 const mkdir_uuidv4 = (baseDirectory) => {
   // 名前が衝突せずにディレクトリの作成ができたらディレクトリ名を返す
@@ -28,7 +29,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3002)
 app.listen(app.get('port'), () => {
   console.log(`http://localhost:${app.get('port')}`)
 })
@@ -40,6 +41,18 @@ app.get('/', (req, res) => {
 app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
 app.post('/upload', upload.array('codes'), (req, res) => {
+  const files = req.files.map(value => value.path)
+  console.log(files)
+  // for (file of req.files) {
+  //   console.log(file.path)
+  // }
+  const argFiles = files.join(' ')
+  const runCommand = `docker run -v $(pwd):/gtest --rm googletest_01 ${argFiles}`
+
+  exec(runCommand, (err, stdout, stderr) => {
+    if (err) console.error(stderr)
+    console.log(stdout)
+  })
   res.send('uppi!')
 })
 // app.post('/upload', upload.array('code'), (req, res) => {
