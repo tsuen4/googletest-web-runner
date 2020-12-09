@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 
 app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
-app.post('/upload', upload.single('code'), (req, res) => {
+app.post('/upload', upload.single('codes'), (req, res) => {
   res.send('uppi!')
 })
 // app.post('/upload', upload.array('code'), (req, res) => {
