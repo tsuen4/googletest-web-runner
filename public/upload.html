@@ -8,11 +8,11 @@
 </head>
 <body>
     <h1>upload</h1>
-    <div>
+    <form id="submit-form">
         <input type="hidden" name="uuidv4" value="" />
         <input type="file" name="codes" accept=".cpp,.h,.hpp" multiple required />
-        <button onclick="run()">submit</button>
-    </div>
+        <button type="button" id="submit" onclick="run()">送信</button>
+    </form>
     <script>
         axios.get('/uuid').then(res => {
             const uuidv4 = res.data
@@ -20,13 +20,9 @@
         })
 
         function run() {
-            const formData = new FormData()
-            const files = document.querySelector("input[type=file]").files
-            for (const file of files) {
-                formData.append('codes', file)
-            }
-            formData.append('uuidv4', document.querySelector("input[name='uuidv4']").attributes['value'].value)
-            axios.post('/upload', formData, {
+            const form = document.getElementById('submit-form')
+            const formData = new FormData(form)
+            axios.post('/run', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

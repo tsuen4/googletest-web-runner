@@ -36,7 +36,8 @@ app.get('/uuid', (req, res) => {
 
 app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
-app.post('/upload', upload.array('codes'), (req, res) => {
+app.post('/run', upload.array('codes'), (req, res) => {
+  // multer.diskStorage にも req に対しての処理がある
   const id = req.body.uuidv4
 
   // ファイル名のみを docker の引数に渡すように
