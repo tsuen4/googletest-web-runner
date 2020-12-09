@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const multer = require('multer')
 const { v4: uuidv4 } = require('uuid')
-const { exec } = require('child_process')
+const { execFile } = require('child_process')
 
 const mkdir_uuidv4 = (baseDirectory) => {
   // 名前が衝突せずにディレクトリの作成ができたらディレクトリ名を返す
@@ -41,15 +41,15 @@ app.get('/', (req, res) => {
 app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
 app.post('/upload', upload.array('codes'), (req, res) => {
-  const files = req.files.map(value => value.path)
+  const files = req.files.map(value => value.path.replace(/^uploads\//, ''))
   console.log(files)
   // for (file of req.files) {
   //   console.log(file.path)
   // }
   const argFiles = files.join(' ')
-  const runCommand = `docker run -v $(pwd):/gtest --rm googletest_01 ${argFiles}`
+  const runCommand = `run -v ./uploads:/gtest --rm googletest_01 ${argFiles}`
 
-  exec(runCommand, (err, stdout, stderr) => {
+  execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
     if (err) console.error(stderr)
     console.log(stdout)
   })
