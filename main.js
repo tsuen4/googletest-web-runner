@@ -42,7 +42,7 @@ app.post('/run', upload.array('codes'), (req, res) => {
   // console.log(files)
 
   const argFiles = files.join(' ')
-  const runCommand = `run -v ${join(__dirname, 'uploads', id)}:/gtest --rm googletest_01 ${argFiles}`
+  const runCommand = `run -v ${join(__dirname, 'uploads', id)}:/gtest --rm gtest_runner ${argFiles}`
   // console.log(runCommand)
 
   execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
