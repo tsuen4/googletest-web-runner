@@ -13,6 +13,7 @@
         <input type="file" name="codes" accept=".cpp,.h,.hpp" multiple required />
         <button type="button" id="submit" onclick="run()">送信</button>
     </form>
+    <div id="result"></div>
     <script>
         axios.get('/uuid').then(res => {
             const uuidv4 = res.data
@@ -20,13 +21,23 @@
         })
 
         function run() {
+            const resultElement = document.getElementById('result')
+            const submitButton = document.getElementById('submit')
+            resultElement.textContent = '処理中…'
+            submitButton.disabled = true
+            
+            // サーバーにファイルを送信
             const form = document.getElementById('submit-form')
             const formData = new FormData(form)
             axios.post('/run', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }).then(res => console.log(res.data))
+            }).then(res => {
+                const result = res.data
+                resultElement.innerText = result
+                submitButton.disabled = false
+            })
         }
         </script>
 </body>
