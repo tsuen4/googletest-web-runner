@@ -9,7 +9,11 @@ const { execFile } = require('child_process')
 const storage = multer.diskStorage({
   destination (req, file, cb) {
     const id = req.body.uuidv4
-    cb(null, `uploads/${id}`)
+    const directory = `uploads/${id}`
+    if (!fs.existsSync(directory)) {
+      fs.mkdirSync(directory)
+    }
+    cb(null, directory)
   },
   filename (req, file, cb) {
     cb(null, file.originalname)
