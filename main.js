@@ -50,14 +50,17 @@ app.post('/run', upload.array('codes'), (req, res) => {
   // console.log(runCommand)
 
   execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
-    if (err) console.error(stderr)
+    if (err) {
+      console.error(stderr)
+      res.send(stderr)
+      return
+    }
     console.log(stdout)
+    res.send(stdout)
     fs.rmdir(join(__dirname, 'uploads', id), { recursive: true }, err => {
       if (err) console.error(err)
     })
   })
-
-  res.send('uppi!')
 })
 // app.post('/upload', upload.array('code'), (req, res) => {
 //   res.send('uppi!')
