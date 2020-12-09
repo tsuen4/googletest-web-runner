@@ -51,7 +51,11 @@ app.post('/upload', upload.array('codes'), (req, res) => {
   execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
     if (err) console.error(stderr)
     console.log(stdout)
+    fs.rmdir(join(__dirname, 'uploads', id), { recursive: true }, err => {
+      if (err) console.error(err)
+    })
   })
+
   res.send('uppi!')
 })
 // app.post('/upload', upload.array('code'), (req, res) => {
