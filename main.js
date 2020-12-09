@@ -33,13 +33,17 @@ app.get('/uuid', (req, res) => {
 app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
 app.post('/upload', upload.array('codes'), (req, res) => {
-  const files = req.files.map(value => value.path.replace(/^uploads\//, ''))
-  console.log(files)
-  // for (file of req.files) {
-  //   console.log(file.path)
-  // }
+  const id = req.body.uuidv4
+
+  // ファイル名のみを docker の引数に渡すように
+  const regId = new RegExp('uploads/' + id + '/')
+  const files = req.files.map(value => value.path.replace(regId, ''))
+  // console.log(files)
+
   const argFiles = files.join(' ')
-  const runCommand = `run -v ${join(__dirname, 'uploads')}:/gtest --rm googletest_01 ${argFiles}`
+  const runCommand = `run -v ${join(__dirname, 'uploads', id)}:/gtest --rm googletest_01 ${argFiles}`
+  // console.log(runCommand)
+
   execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
     if (err) console.error(stderr)
     console.log(stdout)
