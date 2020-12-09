@@ -26,15 +26,11 @@ app.listen(app.get('port'), () => {
   console.log(`http://localhost:${app.get('port')}`)
 })
 
-app.get('/', (req, res) => {
-  res.send('foo bar')
-})
-
 app.get('/uuid', (req, res) => {
   res.send(uuidv4())
 })
 
-app.get('/upload', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
+app.get('/', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
 app.post('/run', upload.array('codes'), (req, res) => {
   // multer.diskStorage にも req に対しての処理がある
