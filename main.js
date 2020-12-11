@@ -47,6 +47,7 @@ app.get('/', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 app.post('/run', upload.array('codes'), (req, res) => {
   // multer.diskStorage にも req に対しての処理がある
   const id = req.body.uuidv4
+  const runDirectory = join(__dirname, 'uploads', id)
 
   // ファイル名のみを docker の引数に渡すように
   const regId = new RegExp('uploads/' + id + '/')
@@ -54,7 +55,7 @@ app.post('/run', upload.array('codes'), (req, res) => {
   // console.log(files)
 
   const argFiles = files.join(' ')
-  const runCommand = `run -v ${join(__dirname, 'uploads', id)}:/gtest --rm gtest_runner ${argFiles}`
+  const runCommand = `run -v ${runDirectory}:/gtest --rm gtest_runner ${argFiles}`
   // console.log(runCommand)
 
   execFile('docker', runCommand.split(' '), (err, stdout, stderr) => {
