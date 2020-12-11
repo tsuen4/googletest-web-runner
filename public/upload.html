@@ -14,7 +14,7 @@
         <input type="file" name="codes" accept=".cpp,.h,.hpp" multiple required />
         <button type="button" id="submit" onclick="run()">送信</button>
     </form>
-    <div id="result"></div>
+    <pre id="result"></pre>
     <script>
         axios.get('/uuid').then(res => {
             const uuidv4 = res.data
