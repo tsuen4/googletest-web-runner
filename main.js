@@ -62,9 +62,7 @@ app.post('/run', upload.array('codes'), (req, res) => {
     const response = stdout + stderr
     console.log(response)
     res.send(response)
-    fs.rmdir(join(__dirname, 'uploads', id), { recursive: true }, err => {
-      if (err) console.error(err)
-    })
+    rmdir(runDirectory)
   })
 })
 // app.post('/upload', upload.array('code'), (req, res) => {
