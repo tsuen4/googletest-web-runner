@@ -37,6 +37,9 @@
             }).then(res => {
                 const result = res.data
                 resultElement.innerText = result
+            }).catch(err => {
+                const result = err
+                resultElement.innerText = result
             }).finally(() => {
                 submitButton.disabled = false
             })
