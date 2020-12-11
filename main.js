@@ -27,6 +27,12 @@ const upload = multer({
   }
 })
 
+const rmdir = (directoryName) => {
+  fs.rmdir(directoryName, { recursive: true }, err => {
+    if (err) console.error(err)
+  })
+}
+
 app.set('port', process.env.PORT || 3002)
 app.listen(app.get('port'), () => {
   console.log(`http://localhost:${app.get('port')}`)
