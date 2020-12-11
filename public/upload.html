@@ -37,6 +37,7 @@
             }).then(res => {
                 const result = res.data
                 resultElement.innerText = result
+            }).finally(() => {
                 submitButton.disabled = false
             })
         }
