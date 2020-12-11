@@ -7,4 +7,4 @@ fi
 
 # echo "$@"
 
-g++ $@ -pthread -lgtest -lgtest_main && ./a.out
+g++ "$@" -pthread -lgtest -lgtest_main && ./a.out
