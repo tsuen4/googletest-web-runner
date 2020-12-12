@@ -66,13 +66,15 @@ app.post('/run', (req, res) => {
 
     if (err instanceof multer.MulterError) {
       console.dir(err)
+      res.status(500)
 
       if (err.code === 'LIMIT_FILE_SIZE') {
-        res.send('ファイルサイズが大きいです！')
+        err.message = 'ファイルサイズが大きいです！' // 'File too large'
+        res.send(err.message)
       } else {
-        res.status(500)
-        res.send(err)
+        res.send(err.message)
       }
+
       rmdir(runDirectory)
 
       return
