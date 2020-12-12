@@ -66,7 +66,7 @@ app.post('/run', (req, res) => {
       console.error(err)
 
       res.status(500)
-      res.end()
+      res.send(err.message)
       rmdir(runDirectory)
 
       return
