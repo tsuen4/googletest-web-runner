@@ -51,7 +51,11 @@
                 }
             }).then(res => {
                 const result = res.data
-                resultElement.innerText = result
+                if (result) {
+                  resultElement.innerText = result
+                } else {
+                  resultElement.innerText = '何も出力が無いか、タイムアウトしました。'
+                }
             }).catch(err => {
                 const result = err.response.data
                 resultElement.innerText = result
