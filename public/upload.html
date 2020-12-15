@@ -45,7 +45,7 @@
             // サーバーにファイルを送信
             const form = document.getElementById('submit-form')
             const formData = new FormData(form)
-            axios.post('/run', formData, {
+            axios.post('/exec', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
