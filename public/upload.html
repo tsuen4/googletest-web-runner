@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
 </head>
 <body>
-    <h1>GoogleTest Runner</h1>
-    <p>GoogleTest で書かれたプログラムがビルドできます。</p>
+    <h1>GoogleTest Web Runner</h1>
+    <p>
+        GoogleTest で書かれたプログラムがビルドできます。
+        <a href="/googletest-license">(GoogleTest のライセンス)</a><br />
+        ビルドに必要なソースコードをすべて選択し、「送信」ボタンを押して実行します。
+    </p>
     <ul>
         <li>それぞれ 10 KB までの C++ ソースコード(*.cpp, *.h, *.hpp)に対応しています</li>
-        <li>次のコマンドでビルドしています
+        <li>以下のコマンドでビルドしています
             <ul>
                 <li>
                     <code>g++ ファイル名 -pthread -lgtest -lgtest_main</code>
@@ -22,7 +26,7 @@
     </ul>
     <form id="submit-form">
         <input type="hidden" name="uuidv4" value="" />
-        <input type="file" name="codes" accept=".cpp,.h,.hpp" multiple required />
+        <input type="file" name="codes" accept=".cpp, .h, .hpp" multiple required />
         <button type="button" id="submit" onclick="run()">送信</button>
     </form>
     <pre id="result">実行結果はここに出力されます。</pre>
