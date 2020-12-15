@@ -47,6 +47,10 @@ const rmdir = (directoryName) => {
   })
 }
 
+app.set('views', join(__dirname, 'views'))
+app.set('view engine', 'jsx')
+app.engine('jsx', require('express-react-views').createEngine())
+
 app.set('port', process.env.PORT || 3002)
 app.listen(app.get('port'), () => {
   console.log(`http://localhost:${app.get('port')}`)
@@ -105,6 +109,22 @@ app.post('/run', (req, res) => {
     })
   })
 })
-// app.post('/upload', upload.array('code'), (req, res) => {
-//   res.send('uppi!')
-// })
+
+app.get('/upload', (req, res) => {
+  res.render('index', {
+    title: "GoogleTest Web Runner",
+    uuidv4: uuidv4()
+  })
+})
+
+app.get('/license', (req, res) => {
+  fs.readFile(join(__dirname, 'assets/googletest-license'), 'utf-8', (err, data) => {
+    if (err) throw err
+    res.render('license', { 
+      name: 'GoogleTest',
+      repository: 'https://github.com/google/googletest',
+      licenses: data
+    })
+  })
+})
+
