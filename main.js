@@ -99,7 +99,7 @@ app.post('/run', (req, res) => {
     const runCommand = `run -v ${runDirectory}:/gtest --rm gtest_runner ${argFiles}`
     // console.log(runCommand)
 
-    execFile('docker', runCommand.split(' '), { timeout: 10 * 1000 }, (err, stdout, stderr) => {
+    execFile('docker', runCommand.split(' '), { timeout: 20 * 1000 }, (err, stdout, stderr) => {
       const response = stdout + stderr
       console.log(response)
       res.send(response)
