@@ -58,6 +58,8 @@ app.get('/uuid', (req, res) => {
 
 app.get('/', (req, res) => res.sendFile(join(__dirname, 'public/upload.html')))
 
+app.get('/googletest-license', (req, res) => res.sendFile(join(__dirname, 'public/license.html')))
+
 app.post('/run', (req, res) => {
   upload.array('codes')(req, res, (err) => {
     // multer.diskStorage にも req に対しての処理がある
@@ -105,6 +107,3 @@ app.post('/run', (req, res) => {
     })
   })
 })
-// app.post('/upload', upload.array('code'), (req, res) => {
-//   res.send('uppi!')
-// })
