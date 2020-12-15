@@ -5,6 +5,8 @@ Node.js と Docker を使用しています。
 
 送信されたソースコードを GoogleTest が動くコンテナに渡して実行し、出力を Web ページに返します。
 
+![example](https://imgur.com/3KJzVRn.gif)
+
 ## 使い方
 
 Ubuntu 上で動作確認を行いました。Windows では Docker コンテナのマウント絡みでうまく動きません。
